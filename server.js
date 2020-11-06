@@ -26,15 +26,15 @@ mongoose.connect(
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false
-  }
-  ).then(() => {
+  })
+  .then(() => {
     console.log("Connected to mongoDB");
-    // Start the API server
-    // app.listen(PORT, () => {
-    //   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-    // })
+    app.listen(PORT, () => {
+      console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+    })
   })
+  .catch(err => console.log(err))
 
-  app.listen(PORT, () => {
-    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-  })
+//   app.listen(PORT, () => {
+//     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+//   })
