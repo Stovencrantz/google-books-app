@@ -1,17 +1,23 @@
-import logo from './logo.svg';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
-import SearchBar from "./components/Searchbar";
+import SearchPage from "./pages/Search";
+import Navbar from "./components/Navbar"
 import Header from "./components/Header";
-import ResultsList from "./components/ResultsList"
-import Navbar from "./components/Navbar";
+import SavedPage from "./pages/Saved";
+
 function App() {
   return (
-    <div className="App container">
-      <Navbar />
-      <Header />
-      <SearchBar />
-      <ResultsList />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Header />
+        <Switch>
+          <Route exact path = "/" component={SearchPage} />
+          <Route exact path = "/saved" component={SavedPage} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
