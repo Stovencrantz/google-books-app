@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API from "../utils/API.js";
 
 export default function Searchbar() {
 
@@ -12,7 +13,12 @@ export default function Searchbar() {
     function handleFormSubmit(event) {
         event.preventDefault();
         console.log("search term: ", searchTerm);
-        
+        API.searchBooks(searchTerm)
+        .then(response => {
+            console.log("Response from server: ", response.data);
+        })
+        .catch(err => console.log("error in handleFormSubmit catch: ", err))
+
     }
 
     return(

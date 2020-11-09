@@ -3,8 +3,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const path = require("path");
+const routes = require("./routes")
+const logger = require("morgan");
 
 // Define middleware here
+app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
@@ -14,11 +17,11 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 // app.use(API);
 
-app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
-  });
+// app.get("*", function(req, res) {
+//     res.sendFile(path.join(__dirname, "./client/build/index.html"));
+//   });
 
-require("./routes/googleBooksAPI")(app);
+app.use(routes);
 
 // Connect to the Mongo DB
 mongoose.connect(
@@ -37,6 +40,3 @@ mongoose.connect(
   })
   .catch(err => console.log(err))
 
-//   app.listen(PORT, () => {
-//     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-//   })
