@@ -11,7 +11,11 @@ router.route("/:title").get((req, res) => {
   .then((data) => {
     console.log("response: ", data.data.items);
     res.json(data.data.items);
-  });
+  })
+  .catch((err) => {
+      console.log("There was an issue returning our data");
+      console.log(err);
+  })
 });
 
 module.exports = router;

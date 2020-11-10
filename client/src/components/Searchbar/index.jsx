@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import API from "../utils/API.js";
+import BookContext from "../../context/bookContext";
 
 export default function Searchbar() {
 
     const [searchTerm, setSearchTerm ] = useState("");
+    const [ bookList, setBookList] = useState("");
+    const { bookContext, setBookContext } = useContext(BookContext) 
 
     function handleInputChange(event) {
         event.preventDefault();
@@ -16,6 +19,8 @@ export default function Searchbar() {
         API.searchBooks(searchTerm)
         .then(response => {
             console.log("Response from server: ", response.data);
+            setBookList(response.data);
+            setBookContext(response.data);
         })
         .catch(err => console.log("error in handleFormSubmit catch: ", err))
 

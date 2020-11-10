@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import BookContext from "../../context/bookContext";
 
 export default function ResultsList() {
+  const { bookContext, setBookContext } = useContext(BookContext) 
+  useEffect(() => {
+    console.log("book context: ", bookContext)
+  }, [])
   return (
     <div>
       <ul className="list-group">
-        <li className="list-group-item">Cras justo odio</li>
-        <li className="list-group-item">Dapibus ac facilisis in</li>
-        <li className="list-group-item">Morbi leo risus</li>
-        <li className="list-group-item">Porta ac consectetur ac</li>
-        <li className="list-group-item">Vestibulum at eros</li>
+        {bookContext.map((book, index) => {
+          return <li className="list-group-item" key={index}>{book.volumeInfo.title} by {book.volumeInfo.authors[0]}</li>
+        })}
+
       </ul>
     </div>
   );
