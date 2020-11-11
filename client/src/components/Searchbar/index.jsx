@@ -5,7 +5,7 @@ import BookContext from "../../context/bookContext";
 export default function Searchbar() {
 
     const [searchTerm, setSearchTerm ] = useState("");
-    const { bookContext, setBookContext } = useContext(BookContext) 
+    const { bookContext, setBookContext, isLoading, setIsLoading } = useContext(BookContext) 
 
     function handleInputChange(event) {
         event.preventDefault();
@@ -15,10 +15,12 @@ export default function Searchbar() {
     function handleFormSubmit(event) {
         event.preventDefault();
         console.log("search term: ", searchTerm);
+        setIsLoading(true);
         API.searchBooks(searchTerm)
         .then(response => {
             console.log("Response from server: ", response.data);
             setBookContext(response.data);
+            setIsLoading(false);
         })
         .catch(err => console.log("error in handleFormSubmit catch: ", err))
 

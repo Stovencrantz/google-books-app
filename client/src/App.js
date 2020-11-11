@@ -9,7 +9,7 @@ import BookContext from "./context/bookContext";
 
 function App() {
   const [bookContext, setBookContext] = useState({});
-  const [isLoading, setIsLoading] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   // const bookListValue = useMemo(
   //   () => ({
   //     bookContext,
