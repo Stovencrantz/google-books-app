@@ -7,19 +7,20 @@ import Header from "./components/Header";
 import SavedPage from "./pages/Saved";
 import BookContext from "./context/bookContext";
 
-
 function App() {
-
-  const [ bookContext, setBookContext ] = useState({});
-  const bookListValue = useMemo(() => ({
-    bookContext, setBookContext
-  }),
-    [bookContext, setBookContext]
-  );
+  const [bookContext, setBookContext] = useState({});
+  const [isLoading, setIsLoading] = useState({});
+  // const bookListValue = useMemo(
+  //   () => ({
+  //     bookContext,
+  //     setBookContext,
+  //   }),
+  //   [bookContext, setBookContext]
+  // );
 
   return (
-    <BookContext.Provider value={bookListValue}>
-      <Router>
+    <Router>
+      <BookContext.Provider value={{bookContext, setBookContext, isLoading, setIsLoading}}>
         <div className="App">
           <Navbar />
           <Header />
@@ -28,8 +29,8 @@ function App() {
             <Route exact path="/saved" component={SavedPage} />
           </Switch>
         </div>
-      </Router>
-    </BookContext.Provider>
+      </BookContext.Provider>
+    </Router>
   );
 }
 

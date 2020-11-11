@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const axios = require("axios");
 const BASEURL = "https://www.googleapis.com/books/v1/volumes?q=";
-const APIKEY = "AIzaSyAenocerebZN6FNQCmbSGeob3BCCBjfKx4";
+// const APIKEY = "AIzaSyAenocerebZN6FNQCmbSGeob3BCCBjfKx4";
+const APIKEY = process.env.REACT_APP_API_KEY;
 
 // Matches with the "/api/search/:id route"
 
