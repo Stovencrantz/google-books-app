@@ -28,7 +28,7 @@ export default function ResultsListItem(props) {
               </div>
             </div>
             <div className="col text-right">
-              <button className="btn btn-primary mr-2">View</button>
+              <a href={book.volumeInfo.infoLink} target="_blank"><button className="btn btn-primary mr-2">View</button></a>
               <button className="btn btn-primary ml-2">Save</button>
             </div>
 
