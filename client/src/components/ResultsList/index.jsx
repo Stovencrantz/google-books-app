@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect, Switch } from "react";
 import BookContext from "../../context/bookContext";
 import LoadSpinner from "../../components/LoadSpinner";
-import ResultsListItem from "../../components/ResultsList";
+import ResultsListItem from "../../components/ResultsListItem";
+import TestingTesting from "../../components/Testing";
 
 export default function ResultsList() {
   const { bookContext, setBookContext, isLoading, setIsLoading } = useContext(
@@ -10,7 +11,7 @@ export default function ResultsList() {
 
   useEffect(() => {
     console.log("book context: ", bookContext);
-  }, [bookContext]);
+  }, []);
 
   return (
     <div className="px-3 py-3" style={{ borderStyle: "solid" }}>
@@ -18,50 +19,16 @@ export default function ResultsList() {
       <ul className="list-group">
         {isLoading ? (
           <LoadSpinner />
-        ) : Object.keys(bookContext).length === 0 ? (
-          <li className="list-group-item">No Results Found</li>
         ) : (
-          bookContext.map((book, index) => {
-            if (!book.volumeInfo.hasOwnProperty("authors")) {
-              return (
-                <li className="list-group-item" key={index}>
-                  {book.volumeInfo.title} by "Unknown author"
-                </li>
-              );
-            } else {
-              return (
-                <li className="list-group-item" key={index}>
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="row">
-                        <h1 className="text-left">{book.volumeInfo.title}</h1>
-                      </div>
-                      <div className="row">
-                        <h2 className="text-left">
-                          {book.volumeInfo.publisher}
-                        </h2>
-                      </div>
-                      <div className="row">
-                        <h3 className="text-left">
-                          {book.volumeInfo.authors[0]}
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-4">
-                      <img
-                        className="img-thumbnail"
-                        src={book.volumeInfo.imageLinks.thumbnail}
-                      ></img>
-                    </div>
-                    <div className="col-8">{book.volumeInfo.description}</div>
-                  </div>
-                </li>
-              );
-            }
-          })
-        )}
+          Object.keys(bookContext).length === 0 ? (
+            <li className="list-group-item">No Results Found</li>
+          ) : (
+            bookContext.map((book, index) => {
+              {
+                return <ResultsListItem book={book} index={index} />
+              }
+            })
+        ))}
       </ul>
     </div>
   );
