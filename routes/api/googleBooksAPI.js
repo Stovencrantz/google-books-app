@@ -6,7 +6,8 @@ const APIKEY = process.env.REACT_APP_API_KEY;
 
 // Matches with the "/api/search/:id route"
 
-router.route("/:title").get((req, res) => {
+router.route("/:title")
+.get((req, res) => {
   console.log("API url: ", BASEURL + req.params.title + "&" + APIKEY);
   axios.get(BASEURL + req.params.title + "&" + APIKEY)
   .then((data) => {

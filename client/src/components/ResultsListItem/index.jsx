@@ -1,18 +1,33 @@
 import React, { useState, useEffect, useContext } from "react";
 import BookContext from "../../context/bookContext";
+import API from "../../utils/API";
 
 export default function ResultsListItem(props) {
   const book = props.book;
   const index = book.index;
 
+  function saveBook(bookData) {
+    API.saveBook(bookData)
+      .then((res) => console.log("Successfully saved ", bookData.title))
+      .catch((err) => console.log("there was an errer saving the book"));
+  }
+
   function listItem(book, index) {
-    if (!book.volumeInfo.hasOwnProperty("authors")) {
-      return (
-        <li className="list-group-item" key={index}>
-          {book.volumeInfo.title} by "Unknown author"
-        </li>
-      );
-    } else {
+    if (
+      book.volumeInfo.hasOwnProperty("title") &&
+      book.volumeInfo.hasOwnProperty("publisher") &&
+      book.volumeInfo.hasOwnProperty("authors") &&
+      book.volumeInfo.hasOwnProperty("imageLinks") &&
+      book.volumeInfo.hasOwnProperty("infoLink")
+    ) {
+      const bookData = {
+        title: book.volumeInfo.title,
+        publisher: book.volumeInfo.publisher,
+        authors: book.volumeInfo.authors[0],
+        thumbnailLink: book.volumeInfo.imageLinks.thumbnail,
+        link: book.volumeInfo.infoLink,
+      };
+
       return (
         <li className="list-group-item" key={index}>
           <div className="row">
@@ -28,10 +43,16 @@ export default function ResultsListItem(props) {
               </div>
             </div>
             <div className="col text-right">
-              <a href={book.volumeInfo.infoLink} target="_blank"><button className="btn btn-primary mr-2">View</button></a>
-              <button className="btn btn-primary ml-2">Save</button>
+              <a href={book.volumeInfo.infoLink} target="_blank">
+                <button className="btn btn-primary mr-2">View</button>
+              </a>
+              <button
+                className="btn btn-primary ml-2"
+                onClick={() => saveBook(bookData)}
+              >
+                Save
+              </button>
             </div>
-
           </div>
           <div className="row">
             <div className="col-4">

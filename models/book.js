@@ -3,8 +3,10 @@ const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
     title: { type: String, required: true },
-    author: { type: String, required: true },
-    synopsis: String,
+    publisher: { type: String, required: true },
+    authors: { type: String },
+    thumbnailLink: String,
+    link: String,
     date: { type: Date, default: Date.now }
 });
 
