@@ -1,41 +1,57 @@
-import {NavLink} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
 
-export default function Navbar() {
+function HamburgerNav(props) {
+  const [collapsed, setCollapsed] = useState(false);
 
+  const toggleNavbar = () => setCollapsed(collapsed);
+
+  // Use useEffect to detect window resize and update the collpased state
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768 ) {
+        console.log(window.innerWidth+" : " + collapsed)
+        setCollapsed(true);
+      } else {
+        setCollapsed(false);
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check on load
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark" id='navbar'>
-      <a className="navbar-brand">Google Books</a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-        <li>
-          <NavLink exact to="/" className={( {isActive, isPending }) => 
-            isPending ? "pending" : isActive ? "active" : ""
-          }>
-            Search
-          </NavLink>
-        </li>
-        <br /> 
-        <li>
-          <NavLink exact to="/saved" className={( {isActive, isPending }) => 
-          isPending ? "pending" : isActive ? "active" : ""
-          }>
-            Saved
-          </NavLink>
-        </li>
-        </ul>
-      </div>
-    </nav>
+    <div>
+      <Navbar color="faded" expand>
+        <NavbarBrand href="/" className="me-auto">
+          Google Books
+        </NavbarBrand>
+        <NavbarToggler onClick={toggleNavbar} className="me-2" />
+        <Collapse isOpen={collapsed} navbar>
+          <Nav navbar>
+            <NavItem>
+              <NavLink href="/">Search</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/Saved">
+                Saved
+              </NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
   );
 }
+
+export default HamburgerNav;
