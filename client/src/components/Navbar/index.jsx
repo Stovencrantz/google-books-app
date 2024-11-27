@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Collapse,
   Navbar,
@@ -9,40 +9,23 @@ import {
   NavLink,
 } from 'reactstrap';
 
-function HamburgerNav(props) {
-  const [collapsed, setCollapsed] = useState(false);
+function HamburgerNav(args) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
-  const toggleNavbar = () => setCollapsed(collapsed);
-
-  // Use useEffect to detect window resize and update the collpased state
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 768 ) {
-        console.log(window.innerWidth+" : " + collapsed)
-        setCollapsed(true);
-      } else {
-        setCollapsed(false);
-      }
-    }
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Initial check on load
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
     <div>
-      <Navbar color="faded" expand>
-        <NavbarBrand href="/" className="me-auto">
-          Google Books
-        </NavbarBrand>
-        <NavbarToggler onClick={toggleNavbar} className="me-2" />
-        <Collapse isOpen={collapsed} navbar>
-          <Nav navbar>
-            <NavItem>
+      <Navbar {...args}>
+        <NavbarBrand href="/">Google Books</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="me-auto" navbar>
+            <NavItem active={isActive} onClick={() => setIsActive(!isActive)}>
               <NavLink href="/">Search</NavLink>
             </NavItem>
-            <NavItem>
+            <NavItem active={!isActive} onClick={() => setIsActive(!isActive)}>
               <NavLink href="/Saved">
                 Saved
               </NavLink>

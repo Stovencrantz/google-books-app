@@ -1,17 +1,17 @@
-import React, { useContext, useState, useEffect, Switch } from "react";
+import React, { useContext } from "react";
 import BookContext from "../../context/bookContext";
 import LoadSpinner from "../../components/LoadSpinner";
 import ResultsListItem from "../../components/ResultsListItem";
 
 export default function ResultsList() {
-  const { bookContext, setBookContext, isLoading, setIsLoading } = useContext(
+  const { bookContext, isLoading } = useContext(
     BookContext
   );
 
-  useEffect(() => {
+ /* useEffect(() => {
     console.log("book context: ", bookContext);
   }, []);
-
+*/
   return (
     <div className="px-3 py-3" style={{ borderStyle: "solid" }}>
       <h2 className="text-left">Search Results:</h2>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import SearchPage from "./pages/Search";
@@ -22,7 +22,7 @@ function App() {
     <Router>
       <BookContext.Provider value={{bookContext, setBookContext, isLoading, setIsLoading}}>
         <div className="App">
-          <HamburgerNav />
+          <HamburgerNav color="light" light="false" expand="lg"/>
           <Header />
           <Switch>
             <Route exact path="/" component={SearchPage} />
